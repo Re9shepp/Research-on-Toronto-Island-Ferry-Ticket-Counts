@@ -1,0 +1,83 @@
+---
+title: "Research on Toronto Island Ferry Ticket Counts"
+subtitle: "Ticketing data in relation to daily time periods"
+author: 
+  - Mingjin Zhan
+thanks: "Code and data are available at: LINK."
+date: 24 september
+date-format: long
+abstract: "This paper aims to study the correlation between Toronto Island Ferry Ticket Counts and time, and analyzes the difference in sales volume in different time periods, holidays or working days from sale counts and redemption count. {Found none}. Finally, we can understand the island time habits of people living in Toronto or visiting Toronto through this study."
+format: pdf
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(palmerpenguins)
+
+data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
+```
+
+
+# Introduction
+
+You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
+
+The remainder of this paper is structured as follows. @sec-data....
+
+
+
+# Data {#sec-data}
+
+Some of our data is of penguins (@fig-bills), from @palmerpenguins.
+
+```{r}
+#| label: fig-bills
+#| fig-cap: Redemption Counts& Sales Counts
+#| echo: false
+
+data$Date <- as.Date(data$Date, format="%Y-%m-%d")
+data$Datetime <- as.POSIXct(paste(data$Date, data$Hour), format="%Y-%m-%d %H")
+
+ggplot(data, aes(x=Datetime, y=Redemption_Count)) +
+  geom_line(color="blue") +
+  labs(title="Redemption Count Over Time", x="Datetime", y="Redemption Count") +
+  theme_minimal()
+
+ggplot(data, aes(x=Datetime, y=Sales_Count)) +
+  geom_line(color="red") +
+  labs(title="Sales Count Over Time", x="Datetime", y="Sales Count") +
+  theme_minimal()
+
+ggplot(data) +
+  geom_line(aes(x=Datetime, y=Redemption_Count, color="Redemption Count")) +
+  geom_line(aes(x=Datetime, y=Sales_Count, color="Sales Count")) +
+  labs(title="Redemption and Sales Counts Over Time", x="Datetime", y="Count") +
+  theme_minimal() +
+  scale_color_manual(values=c("Redemption Count"="blue", "Sales Count"="red"))
+```
+
+Talk more about it.
+
+And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
+
+
+
+Talk way more about it. 
+
+
+
+
+
+
+\newpage
+
+
+# References
+
+
