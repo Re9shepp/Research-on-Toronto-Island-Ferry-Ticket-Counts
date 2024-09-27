@@ -1,0 +1,92 @@
+LLM: ChatGPT-4.
+Date: 28 september 2024
+
+Here is the r code generated using chatgpt
+
+# change format of Timestame
+data$Timestamp <- as.POSIXct(data$Timestamp, format="%Y-%m-%dT%H:%M:%S")
+
+start_date <- as.POSIXct("2023-08-01 00:00:00")
+end_date <- as.POSIXct("2024-08-01 00:00:00")
+
+data <- subset(data, Timestamp >= start_date & Timestamp < end_date)
+
+# data group by hour
+hourly_data <- data %>%
+  mutate(hour = format(data$Timestamp, "%Y-%m-%d %H:00:00")) %>%
+  group_by(hour) %>%
+  summarise(Redemption_Count = sum(`Redemption Count`),
+            Sales_Count = sum(`Sales Count`))
+
+values <- 500 + 450 * sin((pi/12) * (hours - 6)) + rnorm(length(hours), 0, 5)
+
+summer_and_autumn_weekdays_hourly_avg_data <- summer_and_autumn_weekdays_data %>%
+  group_by(Hour) %>%
+  summarise(
+    avg_redemption_counts = mean(Redemption_Count),
+    avg_sales_counts = mean(Sales_Count)
+  )
+
+p1 <- ggplot(summer_and_autumn_weekdays_hourly_avg_data, aes(x = Hour)) + 
+  geom_line(aes(y = avg_redemption_counts, colour = "Redemption Count")) + 
+  geom_line(aes(y = avg_sales_counts, colour = "Sales Count")) +
+  labs(title = "Summer and Autumn Weekdays",
+       x = "Hour of Day", y = "Average Count") + 
+  scale_x_continuous(breaks = seq(0, 23, 1)) + 
+  scale_color_manual(values = c("Redemption Count" = "blue", "Sales Count" = "red")) +
+  theme_minimal()
+
+summer_and_autumn_weekends_holidays_hourly_avg_data <- 
+  summer_and_autumn_weekends_and_holidays_data %>%
+  group_by(Hour) %>%
+  summarise(
+    avg_redemption_counts = mean(Redemption_Count),
+    avg_sales_counts = mean(Sales_Count)
+  )
+
+p2 <- ggplot(summer_and_autumn_weekends_holidays_hourly_avg_data, aes(x = Hour)) + 
+  geom_line(aes(y = avg_redemption_counts, colour = "Redemption Count")) + 
+  geom_line(aes(y = avg_sales_counts, colour = "Sales Count")) +
+  labs(title = "Summer and Autumn Weekends/Holidays",
+       x = "Hour of Day", y = "Average Count") + 
+  scale_x_continuous(breaks = seq(0, 23, 1)) + 
+  scale_color_manual(values = c("Redemption Count" = "blue", "Sales Count" = "red")) +
+  theme_minimal()
+
+
+winter_and_spring_weekdays_hourly_avg_data <- winter_and_spring_weekdays_data %>%
+  group_by(Hour) %>%
+  summarise(
+    avg_redemption_counts = mean(Redemption_Count),
+    avg_sales_counts = mean(Sales_Count)
+  )
+
+p3 <- ggplot(winter_and_spring_weekdays_hourly_avg_data, aes(x = Hour)) + 
+  geom_line(aes(y = avg_redemption_counts, colour = "Redemption Count")) + 
+  geom_line(aes(y = avg_sales_counts, colour = "Sales Count")) +
+  labs(title = "Winter and Spring Weekdays",
+       x = "Hour of Day", y = "Average Count") + 
+  scale_x_continuous(breaks = seq(0, 23, 1)) + 
+  scale_color_manual(values = c("Redemption Count" = "blue", "Sales Count" = "red")) +
+  theme_minimal()
+
+winter_and_spring_weekends_holidays_hourly_avg_data <- 
+  winter_and_spring_weekends_and_holidays_data %>%
+  group_by(Hour) %>%
+  summarise(
+    avg_redemption_counts = mean(Redemption_Count),
+    avg_sales_counts = mean(Sales_Count)
+  )
+
+p4 <- ggplot(winter_and_spring_weekends_holidays_hourly_avg_data, aes(x = Hour)) + 
+  geom_line(aes(y = avg_redemption_counts, colour = "Redemption Count")) + 
+  geom_line(aes(y = avg_sales_counts, colour = "Sales Count")) +
+  labs(title = "Winter and Spring Weekends/Holidays",
+       x = "Hour of Day", y = "Average Count") + 
+  scale_x_continuous(breaks = seq(0, 23, 1)) + 
+  scale_color_manual(values = c("Redemption Count" = "blue", "Sales Count" = "red")) +
+  theme_minimal()
+
+combined_plot <- (p1 | p2) / (p3 | p4) +
+  plot_annotation(title = "Average Redemption and Sales Counts by Hour Across Groups")
+combined_plot
