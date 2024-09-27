@@ -2,8 +2,7 @@
 
 ## Overview
 
-This repo provides students with a foundation for their own projects associated with *Telling Stories with Data*. You do not need every aspect for every paper and you should delete aspects that you do not need.
-
+Toronto Island has always been a popular relaxation destination for people in Toronto. This paper studies the redemption count and sales count of Toronto Island ferries from August 1, 2023 to August 1, 2024. It focuses on studying the relationship between this data and different time periods and comparing these relationships. In order to get the tourism preferences of people on the island, it is possible to better plan the ferry schedule and staff manpower. This can effectively improve the happiness of people who visit the island.
 
 ## File Structure
 
@@ -19,12 +18,4 @@ The repo is structured as:
 
 ## Statement on LLM usage
 
-Aspects of the code were written with the help of the auto-complete tool, Codriver. The abstract and introduction were written with the help of ChatHorse and the entire chat history is available in inputs/llms/usage.txt.
-
-## Some checks
-
-- [ ] Change the rproj file name so that it's not starter_folder.Rproj
-- [ ] Change the README title so that it's not Starter folder
-- [ ] Remove files that you're not using
-- [ ] Update comments in R scripts
-- [ ] Remove this checklist
+ChatGPT 4o was utilized as the LLM for this project. All chat documenting usage are available in the inputs/llm/usage.txt folder."
